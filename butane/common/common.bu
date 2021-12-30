@@ -1,0 +1,9 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      groups:
+        - docker
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBcAxG2Wa1wZ1btESnOd/xJq3kSmA5n+ZC9puOjYaDPH

@@ -1,0 +1,18 @@
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "groups": [
+          "docker"
+        ],
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBcAxG2Wa1wZ1btESnOd/xJq3kSmA5n+ZC9puOjYaDPH"
+        ]
+      }
+    ]
+  }
+}

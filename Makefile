@@ -1,4 +1,4 @@
-.PHONY: all primary
+.PHONY: all clean-ignition clean serve
 
 BUTANE_BASE_SRCS := $(wildcard butane/common/*.bu)
 BUTANE_SERVICE_SRCS := $(wildcard butane/services/*.bu)
@@ -8,7 +8,9 @@ IGNITION_BASE_CONFIGS := $(BUTANE_BASE_SRCS:butane/common/%.bu=ignition/common/%
 IGNITION_SERVICE_CONFIGS := $(BUTANE_SERVICE_SRCS:butane/services/%.bu=ignition/services/%.ign)
 IGNITION_NODE_CONFIGS := $(BUTANE_NODE_SRCS:butane/nodes/%.bu=ignition/nodes/%.ign)
 
-all: ${IGNITION_BASE_CONFIGS} ${IGNITION_SERVICE_CONFIGS} ${IGNITION_NODE_CONFIGS}
+all: ignition
+
+ignition: ${IGNITION_BASE_CONFIGS} ${IGNITION_SERVICE_CONFIGS} ${IGNITION_NODE_CONFIGS}
 
 clean: clean-ignition
 
@@ -30,3 +32,7 @@ ignition/nodes/%.ign: butane/nodes/%.bu ${IGNITION_BASE_CONFIGS} ${IGNITION_SERV
 	mkdir -p ignition/nodes
 	butane --pretty --strict --files-dir . -o $@ $<
 
+serve: |ignition
+	@echo "[Serve] Serving node configs on the following addresses on port 8000:"
+	@echo "$$(ifconfig | grep inet\ )"
+	python -m http.server -d ./ignition/nodes
